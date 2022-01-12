@@ -6,17 +6,15 @@ public class App {
 
     public static void main(String[] args) {
 
-        int[] binArr = new int[]{1, 0, 1, 0, 0, 0, 0, 0};
-        int dec = 160;
-        int[] decArr = new int[9];
-        int[] decArr2 = new int[9];
+        int[] binArr = new int[]{1, 1, 0, 1, 1, 1, 0, 1};
+        int dec = 221;
 
+        String sBinResult;
 
         binToDec(binArr);
-        decToBin(dec, decArr, decArr2);
+        sBinResult = decToBin(dec);
 
-
-
+        System.out.println(sBinResult);
     }
 
     public static void binToDec(int[] arr) {
@@ -25,7 +23,7 @@ public class App {
         for (int i = arr.length - 1; i >= 0; i--) {
 
             if (arr[i] == 1) {
-                count = count + (int)Math.pow(2, arr.length - 1 - i);
+                count = count + (int) Math.pow(2, arr.length - 1 - i);
             } else if (arr[i] == 0) {
                 count = count + 0;
             } else {
@@ -36,43 +34,42 @@ public class App {
         System.out.println("The decimal is " + count);
     }
 
+    public static String decToBin(int dec) {
 
+        int iCount;
 
-    public static void decToBin(int dec, int[] decArr, int[] decArr2) {
+        String sCalc = "";  // String to collect the result of conversion
 
-        int decCount;
-        int index = 0;
-        int c = 0;
-        int index1 = 0;
+        iCount = dec;
 
+        while (iCount >= 1) {
+            // Check if there is a reminder after dividing iCount by Counting Base (2)
+             if (iCount % 2 == 0) {
+                 sCalc += "0";
 
-        while(dec >= 1) {
+                 // Reduce iCount dividing it by Counting Base (2)
+                 iCount = iCount / 2;
 
-            if (dec % 2 == 0) {
-                decCount = dec / 2;
-                dec = decCount;
-                decArr[index++] = c;
-                System.out.println("0");
-                decToBin(dec, decArr, decArr2);
-            } else if (dec % 2 == 1) {
-                decCount = (dec - 1) / 2;
-                dec = decCount;
-                System.out.println("1");
-                decToBin(dec, decArr, decArr2);
+//                 System.out.print("0");
+             } else {
+                 sCalc += "1";
+
+                 // Reduce iCount dividing it by Counting Base (2)
+                 iCount = (iCount - 1) / 2;
+
+//                 System.out.print("1");
+             }
             }
 
-
-            if (index == 0) {
-                index = 1;
-            } else if (index == 1) {
-                index = 0;
-            }
-            System.out.println( " index: " + index);
-
-            break;
-            }
-
+        StringBuilder sb = new StringBuilder(sCalc);
+        sb.reverse();
+        return sb.toString();
         }
 
-        }
+
+    }
+
+
+
+
 
